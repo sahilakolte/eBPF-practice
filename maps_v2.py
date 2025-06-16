@@ -51,8 +51,11 @@ execve = b.get_syscall_fnname("execve")
 b.attach_kprobe(event=clone, fn_name="test_clone")
 b.attach_kprobe(event=execve, fn_name="test_execve")
 while True:
-    sleep(2)
-    line = ""
-    for k, v in b["syscall"].items():
-        line += "syscall {0}: {1}\t".format(k.value, v.value)
-    print(line)
+    try:
+        sleep(2)
+        line = ""
+        for k, v in b["syscall"].items():
+            line += "syscall {0}: {1}\t".format(k.value, v.value)
+        print(line)
+    except KeyboardInterrupt:
+        exit()

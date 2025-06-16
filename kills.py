@@ -24,8 +24,11 @@ program = """
 b = BPF(text=program)
 
 while True:
-    sleep(2)
-    for k, v in b["kills"].items():
-        print("pid: {}\tname: {}".format(k.value, v.comm.decode()))
-    b["kills"].clear()
-    print("-"*30)
+    try:
+        sleep(2)
+        for k, v in b["kills"].items():
+            print("pid: {}\tname: {}".format(k.value, v.comm.decode()))
+        b["kills"].clear()
+        print("-"*30)
+    except KeyboardInterrupt:
+        exit()

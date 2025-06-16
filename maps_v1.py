@@ -46,8 +46,11 @@ program = """
 
 b = BPF(text=program)
 while True:
-    sleep(2)
-    line = ""
-    for k, v in b["syscall"].items():
-        line += "syscall {0}: {1}\t".format(k.value, v.value)
-    print(line)
+    try:
+        sleep(2)
+        line = ""
+        for k, v in b["syscall"].items():
+            line += "syscall {0}: {1}\t".format(k.value, v.value)
+        print(line)
+    except KeyboardInterrupt:
+        exit()
