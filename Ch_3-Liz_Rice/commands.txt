@@ -1,0 +1,30 @@
+Compile the program
+
+Loading the program to kernel:
+    bpftool prog load hello.bpf.o /sys/fs/bpf/hello
+
+Inspecting the program:
+    bpftool prog list
+    bpftool prog show id <id> --pretty
+
+Attaching to an event:
+    bpftool net attach xdp id <id> dev <net_int_name>
+
+Show ip link:
+    ip link
+    bpftool net list
+
+See output:
+    cat /sys/kernel/debug/tracing/trace_pipe
+    bpftool prog tracelog
+
+Detach the program:
+    bpftool net detach xdp dev <net_int_name>
+
+Unloading the program:
+    rm /sys/fs/bpf/hello
+
+Note:
+An XDP event is triggered by the arrival of a packet of data on
+a network interface, whereas kprobe and tracepoint events are triggered by hitting
+some particular point in kernel code.
